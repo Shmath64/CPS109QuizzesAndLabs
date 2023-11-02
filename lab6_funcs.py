@@ -67,9 +67,11 @@ def two_summers(items, target):
     the scenes. 
 
     '''
-
-    pass # replace 'pass' with a return statement.
-
+    for item in items: #Note items is sorted in ascending order
+        num_needed = target-item
+        if num_needed in items and num_needed != item:
+            return (item, num_needed)
+    return None
 
 # --------------------------------------------------------------
 # 3) Largest on the left
@@ -99,8 +101,14 @@ def count_dominators(items):
     the scenes. 
 
     '''
-
-    pass # replace 'pass' with a return statement.
+    dominatorCount = 0
+    for i, item in enumerate(items):
+        if i == len(items)-1: # if last item in list
+            dominatorCount += 1
+            break
+        if item > max(items[i+1:]): #if item greater than ALL elements to its right
+            dominatorCount += 1
+    return dominatorCount
 
 
 # --------------------------------------------------------------
@@ -144,7 +152,25 @@ def safe_squares_rooks(n, rooks):
 
     '''
 
-    pass # replace 'pass' with a return statement.
+    board = []
+    for i in range(n):
+        board.append([])
+        for j in range(n):
+            board[i].append(j)
+
+    for rook in rooks:
+        board[rook[0]] = [] #clear the column
+        for column in board: #for each column
+            try: 
+                column.remove(rook[1]) #remove the square that shares the row (if it exists)
+            except:
+                pass
+    
+    safeSquares = sum(map(len, board))
+        
+    return safeSquares
+    
+            
 
 
 # --------------------------------------------------------------
@@ -175,6 +201,16 @@ def remove_after_kth(items, k):
     one pass, and one pass only.
 
     '''
-
-    pass # replace 'pass' with a return statement.
+    dictOfItems = dict()
+    newList = []
+    
+    for item in items:
+        if item in dictOfItems.keys():
+            dictOfItems[item] += 1
+        else:
+            dictOfItems[item] = 1
+            
+        if dictOfItems[item] <= k: newList.append(item) 
+    
+    return newList
 
